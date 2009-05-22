@@ -17,47 +17,47 @@
  */
 
 jQuery.fn.readFeed = function(config) {
-        config = $.extend({
-            uri: null,
-            limit: null,
-            documentClass: null
-        }, config);
+  config = $.extend({
+    uri: null,
+    limit: null,
+    documentClass: null
+  }, config);
 
-        var self = this;
+  var self = this;
 
-        $.ajax({
-            url: config.uri,
-            dataType: 'xml',
-            cache: false,
-            success: function(feed) {
-                $(feed).find('entry').each(function(i) {
-                    if (config.limit && i >= config.limit) {
-                        return false;
-                    }
+  $.ajax({
+    url: config.uri,
+    dataType: 'xml',
+    cache: false,
+    success: function(feed) {
+      $(feed).find('entry').each(function(i) {
+        if (config.limit && i >= config.limit) {
+          return false;
+        }
 
-                    var title = $(this).find('title').text();
-                    self.append((config.documentClass ? '<li class="' + config.documentClass + '">'
-                                                      : '<li>')
-                                +
-                                '<a href="' +
-                                $(this).find('link').attr('href') +
-                                '" target="_blank">' +
-                                $(this).find('title').text() +
-                                '</a>' +
-                                '</li>'
-                               );
-                });
-            }
-        });
+        var title = $(this).find('title').text();
+        self.append((
+          config.documentClass ? '<li class="' + config.documentClass + '">'
+                               : '<li>') +
+          '<a href="' +
+          $(this).find('link').attr('href') +
+          '" target="_blank">' +
+          $(this).find('title').text() +
+          '</a>' +
+          '</li>'
+        );
+      });
+    }
+  });
 };
 
 /**
  * Local Variables:
  * mode: js2
  * coding: iso-8859-1
- * tab-width: 4
- * c-basic-offset: 4
- * c-hanging-comment-ender-p: nil
+ * tab-width: 2
+ * js2-basic-offset: 2
  * indent-tabs-mode: nil
+ * c-hanging-comment-ender-p: nil
  * End:
  */
