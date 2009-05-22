@@ -1,5 +1,5 @@
 /**
- * ITEMAN Feed Reader - A jQuery plug-in for populating a feed to a document ID
+ * ITEMAN Feed Reader - A jQuery plug-in for populating a feed to a DOM element
  * Copyright (c) 2009 ITEMAN, Inc. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
