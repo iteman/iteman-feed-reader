@@ -35,7 +35,6 @@ jQuery.fn.readFeed = function(config) {
           return false;
         }
 
-        var title = $(this).find('title').text();
         self.append((
           config.documentClass ? '<li class="' + config.documentClass + '">'
                                : '<li>') +
