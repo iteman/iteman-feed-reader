@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$.fn.extend({
-    readFeed: function(config) {
+jQuery.fn.readFeed = function(config) {
         config = $.extend({
             uri: null,
             limit: null,
@@ -50,8 +49,7 @@ $.fn.extend({
                 });
             }
         });
-    }
-});
+};
 
 /**
  * Local Variables:
