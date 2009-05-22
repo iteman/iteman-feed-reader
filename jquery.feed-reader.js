@@ -49,6 +49,8 @@ jQuery.fn.readFeed = function(config) {
       });
     }
   });
+
+  return this;
 };
 
 /**
