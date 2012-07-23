@@ -25,8 +25,7 @@ jQuery.fn.readFeed = function (config) {
     }, config);
 
     var self = this;
-
-    jQuery.ajax({
+    var ajaxSettings = {
         url: config.uri,
         dataType: config.responseFormat,
         cache: false,
@@ -47,7 +46,9 @@ jQuery.fn.readFeed = function (config) {
                 );
             });
         }
-    });
+    };
+
+    jQuery.ajax(ajaxSettings);
 
     return this;
 };
