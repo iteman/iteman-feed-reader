@@ -19,6 +19,7 @@
 jQuery.fn.readFeed = function (config) {
     config = jQuery.extend({
         uri: null,
+        parameters: null,
         responseFormat: 'xml',
         limit: null,
         documentClass: null
@@ -47,6 +48,9 @@ jQuery.fn.readFeed = function (config) {
             });
         }
     };
+    if (config.parameters) {
+        ajaxSettings['data'] = config.parameters;
+    }
 
     jQuery.ajax(ajaxSettings);
 
