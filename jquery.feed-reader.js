@@ -68,10 +68,10 @@ jQuery.fn.readFeed = function (config) {
         }
     };
     if (config.parameters) {
-        ajaxSettings['data'] = config.parameters;
+        ajaxSettings.data = config.parameters;
     }
     if (config.responseFormat == 'jsonp' && config.jsonpCallbackKey) {
-        ajaxSettings['jsonp'] = config.jsonpCallbackKey;
+        ajaxSettings.jsonp = config.jsonpCallbackKey;
     }
 
     jQuery.ajax(ajaxSettings);
