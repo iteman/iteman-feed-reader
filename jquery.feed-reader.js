@@ -1,6 +1,6 @@
-/**
+/*
  * ITEMAN Feed Reader - A jQuery plug-in for populating a feed to a DOM element
- * Copyright (c) 2009 ITEMAN, Inc. All rights reserved.
+ * Copyright (c) 2009, 2012 ITEMAN, Inc. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,49 +16,48 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-jQuery.fn.readFeed = function(config) {
-  config = $.extend({
-    uri: null,
-    limit: null,
-    documentClass: null
-  }, config);
+jQuery.fn.readFeed = function (config) {
+    config = $.extend({
+        uri: null,
+        limit: null,
+        documentClass: null
+    }, config);
 
-  var self = this;
+    var self = this;
 
-  $.ajax({
-    url: config.uri,
-    dataType: 'xml',
-    cache: false,
-    success: function(feed) {
-      $(feed).find('entry').each(function(i) {
-        if (config.limit && i >= config.limit) {
-          return false;
+    $.ajax({
+        url: config.uri,
+        dataType: 'xml',
+        cache: false,
+        success: function (feed) {
+            $(feed).find('entry').each(function (i) {
+                if (config.limit && i >= config.limit) {
+                    return false;
+                }
+
+                self.append(
+                    (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
+                    '<a href="' +
+                    $(this).find('link').attr('href') +
+                    '" target="_blank">' +
+                    $(this).find('title').text() +
+                    '</a>' +
+                    '</li>'
+                );
+            });
         }
+    });
 
-        self.append((
-          config.documentClass ? '<li class="' + config.documentClass + '">'
-                               : '<li>') +
-          '<a href="' +
-          $(this).find('link').attr('href') +
-          '" target="_blank">' +
-          $(this).find('title').text() +
-          '</a>' +
-          '</li>'
-        );
-      });
-    }
-  });
-
-  return this;
+    return this;
 };
 
-/**
+/*
  * Local Variables:
- * mode: js2
+ * mode: javascript
  * coding: iso-8859-1
- * tab-width: 2
- * js2-basic-offset: 2
- * indent-tabs-mode: nil
+ * tab-width: 4
+ * c-basic-offset: 4
  * c-hanging-comment-ender-p: nil
+ * indent-tabs-mode: nil
  * End:
  */
