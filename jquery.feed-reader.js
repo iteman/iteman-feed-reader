@@ -32,21 +32,39 @@ jQuery.fn.readFeed = function (config) {
         dataType: config.responseFormat,
         cache: false,
         success: function (feed) {
-            jQuery(feed).find('entry').each(function (i) {
-                if (config.limit && i >= config.limit) {
-                    return false;
-                }
+            if (config.responseFormat == 'xml') {
+                jQuery(feed).find('entry').each(function (i) {
+                    if (config.limit && i >= config.limit) {
+                        return false;
+                    }
 
-                self.append(
-                    (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
-                    '<a href="' +
-                    jQuery(this).find('link').attr('href') +
-                    '" target="_blank">' +
-                    jQuery(this).find('title').text() +
-                    '</a>' +
-                    '</li>'
-                );
-            });
+                    self.append(
+                        (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
+                        '<a href="' +
+                        jQuery(this).find('link').attr('href') +
+                        '" target="_blank">' +
+                        jQuery(this).find('title').text() +
+                        '</a>' +
+                        '</li>'
+                    );
+                });
+            } else if (config.responseFormat == 'jsonp') {
+                for (var i = 0; i < feed.value.items.length; ++i) {
+                    if (config.limit && i >= config.limit) {
+                        return false;
+                    }
+
+                    self.append(
+                        (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
+                        '<a href="' +
+                        feed.value.items[i].link +
+                        '" target="_blank">' +
+                        feed.value.items[i].title +
+                        '</a>' +
+                        '</li>'
+                    );
+                }
+            }
         }
     };
     if (config.parameters) {
