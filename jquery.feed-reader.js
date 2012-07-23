@@ -19,6 +19,7 @@
 jQuery.fn.readFeed = function (config) {
     config = jQuery.extend({
         uri: null,
+        responseFormat: 'xml',
         limit: null,
         documentClass: null
     }, config);
@@ -27,7 +28,7 @@ jQuery.fn.readFeed = function (config) {
 
     jQuery.ajax({
         url: config.uri,
-        dataType: 'xml',
+        dataType: config.responseFormat,
         cache: false,
         success: function (feed) {
             jQuery(feed).find('entry').each(function (i) {
