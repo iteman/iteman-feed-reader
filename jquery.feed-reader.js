@@ -21,6 +21,7 @@ jQuery.fn.readFeed = function (config) {
         uri: null,
         parameters: null,
         responseFormat: 'xml',
+        jsonpCallbackKey: null,
         limit: null,
         documentClass: null
     }, config);
@@ -50,6 +51,9 @@ jQuery.fn.readFeed = function (config) {
     };
     if (config.parameters) {
         ajaxSettings['data'] = config.parameters;
+    }
+    if (config.responseFormat == 'jsonp' && config.jsonpCallbackKey) {
+        ajaxSettings['jsonp'] = config.jsonpCallbackKey;
     }
 
     jQuery.ajax(ajaxSettings);
