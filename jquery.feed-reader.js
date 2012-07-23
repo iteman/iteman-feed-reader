@@ -17,7 +17,7 @@
  */
 
 jQuery.fn.readFeed = function (config) {
-    config = $.extend({
+    config = jQuery.extend({
         uri: null,
         limit: null,
         documentClass: null
@@ -25,12 +25,12 @@ jQuery.fn.readFeed = function (config) {
 
     var self = this;
 
-    $.ajax({
+    jQuery.ajax({
         url: config.uri,
         dataType: 'xml',
         cache: false,
         success: function (feed) {
-            $(feed).find('entry').each(function (i) {
+            jQuery(feed).find('entry').each(function (i) {
                 if (config.limit && i >= config.limit) {
                     return false;
                 }
@@ -38,9 +38,9 @@ jQuery.fn.readFeed = function (config) {
                 self.append(
                     (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
                     '<a href="' +
-                    $(this).find('link').attr('href') +
+                    jQuery(this).find('link').attr('href') +
                     '" target="_blank">' +
-                    $(this).find('title').text() +
+                    jQuery(this).find('title').text() +
                     '</a>' +
                     '</li>'
                 );
