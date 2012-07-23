@@ -23,7 +23,8 @@ jQuery.fn.readFeed = function (config) {
         responseFormat: 'xml',
         jsonpCallbackKey: null,
         limit: null,
-        documentClass: null
+        documentClass: null,
+        linkTarget: '_blank'
     }, config);
 
     var self = this;
@@ -42,7 +43,7 @@ jQuery.fn.readFeed = function (config) {
                         (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
                         '<a href="' +
                         jQuery(this).find('link').attr('href') +
-                        '" target="_blank">' +
+                        (config.linkTarget ? '" target="' + config.linkTarget + '">' : '">') +
                         jQuery(this).find('title').text() +
                         '</a>' +
                         '</li>'
@@ -58,7 +59,7 @@ jQuery.fn.readFeed = function (config) {
                         (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
                         '<a href="' +
                         feed.value.items[i].link +
-                        '" target="_blank">' +
+                        (config.linkTarget ? '" target="' + config.linkTarget + '">' : '">') +
                         feed.value.items[i].title +
                         '</a>' +
                         '</li>'
