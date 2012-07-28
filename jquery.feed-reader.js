@@ -34,23 +34,27 @@ jQuery.fn.readFeed = function (config) {
         dataType: config.responseFormat,
         cache: false,
         success: function (feed) {
+            var elementAppender = function (link, title) {
+                self.append(
+                    (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
+                    (config.linkWrapper ? ('<' + config.linkWrapper + '>') : '') +
+                    '<a href="' +
+                    link +
+                    (config.linkTarget ? '" target="' + config.linkTarget + '">' : '">') +
+                    title +
+                    '</a>' +
+                    (config.linkWrapper ? ('</' + config.linkWrapper + '>') : '') +
+                    '</li>'
+                );
+            };
+
             if (config.responseFormat == 'xml') {
                 jQuery(feed).find('entry').each(function (i) {
                     if (config.limit && i >= config.limit) {
                         return false;
                     }
 
-                    self.append(
-                        (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
-                        (config.linkWrapper ? ('<' + config.linkWrapper + '>') : '') +
-                        '<a href="' +
-                        jQuery(this).find('link').attr('href') +
-                        (config.linkTarget ? '" target="' + config.linkTarget + '">' : '">') +
-                        jQuery(this).find('title').text() +
-                        '</a>' +
-                        (config.linkWrapper ? ('</' + config.linkWrapper + '>') : '') +
-                        '</li>'
-                    );
+                    elementAppender(jQuery(this).find('link').attr('href'), jQuery(this).find('title').text());
                 });
             } else if (config.responseFormat == 'jsonp') {
                 for (var i = 0; i < feed.value.items.length; ++i) {
@@ -58,17 +62,7 @@ jQuery.fn.readFeed = function (config) {
                         return false;
                     }
 
-                    self.append(
-                        (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
-                        (config.linkWrapper ? ('<' + config.linkWrapper + '>') : '') +
-                        '<a href="' +
-                        feed.value.items[i].link +
-                        (config.linkTarget ? '" target="' + config.linkTarget + '">' : '">') +
-                        feed.value.items[i].title +
-                        '</a>' +
-                        (config.linkWrapper ? ('</' + config.linkWrapper + '>') : '') +
-                        '</li>'
-                    );
+                    elementAppender(feed.value.items[i].link, feed.value.items[i].title);
                 }
             }
         }
