@@ -24,7 +24,8 @@ jQuery.fn.readFeed = function (config) {
         jsonpCallbackKey: null,
         limit: null,
         documentClass: null,
-        linkTarget: '_blank'
+        linkTarget: '_blank',
+        linkWrapper: null,
     }, config);
 
     var self = this;
@@ -41,11 +42,13 @@ jQuery.fn.readFeed = function (config) {
 
                     self.append(
                         (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
+                        (config.linkWrapper ? ('<' + config.linkWrapper + '>') : '') +
                         '<a href="' +
                         jQuery(this).find('link').attr('href') +
                         (config.linkTarget ? '" target="' + config.linkTarget + '">' : '">') +
                         jQuery(this).find('title').text() +
                         '</a>' +
+                        (config.linkWrapper ? ('</' + config.linkWrapper + '>') : '') +
                         '</li>'
                     );
                 });
@@ -57,11 +60,13 @@ jQuery.fn.readFeed = function (config) {
 
                     self.append(
                         (config.documentClass ? '<li class="' + config.documentClass + '">' : '<li>') +
+                        (config.linkWrapper ? ('<' + config.linkWrapper + '>') : '') +
                         '<a href="' +
                         feed.value.items[i].link +
                         (config.linkTarget ? '" target="' + config.linkTarget + '">' : '">') +
                         feed.value.items[i].title +
                         '</a>' +
+                        (config.linkWrapper ? ('</' + config.linkWrapper + '>') : '') +
                         '</li>'
                     );
                 }
