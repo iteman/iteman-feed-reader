@@ -1,6 +1,6 @@
 /*
  * ITEMAN Feed Reader - A jQuery plug-in for populating a feed to a DOM element
- * Copyright (c) 2009, 2012 ITEMAN, Inc. All rights reserved.
+ * Copyright (c) 2009, 2012-2013 ITEMAN, Inc. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ jQuery.fn.readFeed = function (config) {
     config = jQuery.extend({
         uri: null,
         parameters: null,
-        responseFormat: 'xml',
+        responseFormat: 'atom',
         jsonpCallbackKey: null,
         limit: null,
         documentClass: null,
@@ -48,7 +48,7 @@ jQuery.fn.readFeed = function (config) {
                 );
             };
 
-            if (config.responseFormat == 'xml') {
+            if (config.responseFormat == 'atom') {
                 jQuery(feed).find('entry').each(function (i) {
                     if (config.limit && i >= config.limit) {
                         return false;
