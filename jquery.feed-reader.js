@@ -48,7 +48,15 @@ jQuery.fn.readFeed = function (config) {
                 );
             };
 
-            if (config.responseFormat == 'atom') {
+            if (config.responseFormat == 'rss2') {
+                jQuery(feed).find('item').each(function (i) {
+                    if (config.limit && i >= config.limit) {
+                        return false;
+                    }
+
+                    elementAppender(jQuery(this).find('link').text(), jQuery(this).find('title').text());
+                });
+            } else if (config.responseFormat == 'atom') {
                 jQuery(feed).find('entry').each(function (i) {
                     if (config.limit && i >= config.limit) {
                         return false;
