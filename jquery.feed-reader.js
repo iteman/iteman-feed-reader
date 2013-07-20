@@ -31,7 +31,7 @@ jQuery.fn.readFeed = function (config) {
     var self = this;
     var ajaxSettings = {
         url: config.uri,
-        dataType: config.responseFormat,
+        dataType: (config.responseFormat == 'json' || config.responseFormat == 'jsonp') ? config.responseFormat : 'xml',
         cache: false,
         success: function (feed) {
             var elementAppender = function (link, title) {
