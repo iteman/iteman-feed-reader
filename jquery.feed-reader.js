@@ -20,7 +20,7 @@ jQuery.fn.readFeed = function (config) {
     config = jQuery.extend({
         uri: null,
         parameters: null,
-        responseFormat: 'atom',
+        responseFormat: 'rss2',
         jsonpCallbackKey: null,
         limit: null,
         documentClass: null,
